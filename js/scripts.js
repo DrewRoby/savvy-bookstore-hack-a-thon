@@ -129,6 +129,7 @@ function createProductCard( product ){
             ${sellingPointsList}
           </ul>
         </div>
+      </div>
     `;
 
     element.appendChild( deleteButton );
@@ -216,3 +217,8 @@ document
 
         content.appendChild( createProductCard( newProduct ) );
     } );
+
+document.querySelectorAll( "button" ).forEach(
+    ( deleteButton ) => deleteButton.addEventListener( "click", () =>
+        console.log( "I am deleted!" )
+    ) );

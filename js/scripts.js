@@ -1,7 +1,5 @@
 /* globals $ */
 /* eslint-disable vars-on-top, no-console */
-$.ajax( "https://api.savvycoders.com/albums" ).then( console.log );
-$.ajax( "https://api.savvycoders.com/books" ).then( console.log );
 
 var books = [
     {
@@ -78,6 +76,24 @@ var albums = [
     }
 ];
 
+var albumsRequest = $.ajax( "https://api.savvycoders.com/albums" );
+var booksRequest = $.ajax( "https://api.savvycoders.com/books" );
+// Array.prototype.push(
+//     albums, $.ajax( "https://api.savvycoders.com/albums" ).then( ( album ) => albums.push( album ) )
+// );
+
+//
+// function addRequestToList( addition, master ){
+//     addition.then( master.forEach( ( item ) => master.push( item ) ) );
+// }
+//
+// addRequestToList( albumsRequest,albums );
+// $.ajax( "https://api.savvycoders.com/albums" )
+
+// albumsRequest.then( console.log , albums );
+// albumsRequest.then( self.forEach( ( album ) => albums.push( album ) ) );
+// albums.push( $.ajax( "https://api.savvycoders.com/albums" ).then ).forEach;
+// books.push( $.ajax( "https://api.savvycoders.com/books" ).then ).forEach;
 
 function createProductCard( product ){
     var sellingPoints = "<ul>";
@@ -107,7 +123,7 @@ function createProductCard( product ){
         </div>
         <ul class='price'>
           <li>
-            Price: $${product.price}.00
+            Price: $${product.price}
           </li>
         </ul>
         <div class='selling_points'>
@@ -117,7 +133,15 @@ function createProductCard( product ){
     `;
 }
 
-document.querySelector( "#content" ).innerHTML += albums.map( createProductCard ).join( "" ) + books.map( createProductCard ).join( "" );
+function createProduct( product ){
+    return product
+        .map( createProductCard )
+        .join( "" );
+}
+
+function placeProduct( productToPlace ){
+    document.querySelector( "#content" ).innerHTML += createProduct( productToPlace );
+}
 
 
 document
@@ -186,3 +210,14 @@ document
 
         document.querySelector( "#content" ).innerHTML += createProductCard( newProduct );
     } );
+
+albumsRequest.then( ( flansgarble ) => flansgarble.forEach( ( album ) => albums.push( album ) ) );
+booksRequest.then( ( grebsmackles ) => grebsmackles.forEach( ( book ) => books.push( book ) ) );
+
+placeProduct( books );
+placeProduct( albums );
+console.log( books );
+console.log( albums );
+console.log( "Alex y dis hapn" );
+// albumsRequest.then( placeProduct );
+// booksRequest.then( placeProduct );
